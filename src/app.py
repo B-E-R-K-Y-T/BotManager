@@ -8,5 +8,5 @@ async def main(page: ft.Page):
     app_builder.build()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ft.app(target=main, view=ft.AppView.WEB_BROWSER)

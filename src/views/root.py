@@ -1,6 +1,6 @@
 import flet as ft
 
-from views.base_frame import BaseFrame
+from src.views.base_frame import BaseFrame
 
 
 class Root(BaseFrame):

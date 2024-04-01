@@ -16,17 +16,20 @@ class RouteManager:
 
     async def route_change(self, route):
         self.page.views.clear()
-        self.page.views.append(
-            Root(self.page, route="/")
-        )
+        self.page.views.append(Root(self.page, route="/"))
 
         if self.page.route == "/":
             self.page.update()
             return
 
         elif self.page.route in URLS:
-            self.page.views.append(URLS[self.page.route](self.page, route=self.page.route))
+            view = URLS[self.page.route](self.page, route=self.page.route)
+
+            self.page.views.append(view)
             self.page.update()
+
+            await view.start_animate()
+
         else:
             not_found = NotFound(self.page, route=self.page.route)
             self.page.views.append(not_found)

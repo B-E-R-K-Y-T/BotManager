@@ -163,3 +163,6 @@ ignore_git/
 
 *.log.*
 .env-dev
+.env.dev
+
+*.db

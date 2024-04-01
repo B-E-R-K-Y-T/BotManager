@@ -1,11 +1,13 @@
 import flet as ft
 
-from views.base_frame import BaseFrame
+from src.views.base_frame import BaseFrame
 
 
 class NotFound(BaseFrame):
     def __init__(self, page: ft.Page, *args, route, **kwargs):
         super().__init__(page, *args, route=route, **kwargs)
+
+        self.page = page
 
         self.vertical_alignment = ft.MainAxisAlignment.CENTER
         self.horizontal_alignment = ft.CrossAxisAlignment.CENTER
@@ -16,7 +18,7 @@ class NotFound(BaseFrame):
             value="Page Not Found",
             scale=2,
             offset=ft.Offset(x=0, y=-50),
-            animate_offset=ft.animation.Animation(1000, ft.AnimationCurve.BOUNCE_OUT)
+            animate_offset=ft.animation.Animation(1000, ft.AnimationCurve.BOUNCE_OUT),
         )
 
         self.controls += [
@@ -29,4 +31,3 @@ class NotFound(BaseFrame):
     async def start_animate(self):
         self.not_found_text.offset = ft.Offset(x=0, y=0)
         self.not_found_text.update()
-

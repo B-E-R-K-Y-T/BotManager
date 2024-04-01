@@ -1,6 +1,6 @@
 import sqlite3
 
-from src.config import app_settings
+from config import app_settings
 
 
 class SQLiteDB:

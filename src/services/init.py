@@ -2,13 +2,15 @@ from services.database import SQLiteDB
 
 
 def init_database():
-    with SQLiteDB("test.db") as db:
+    with SQLiteDB() as db:
         db.create_table(
-            table_name="bots", columns=["id INTEGER PRIMARY KEY", "token TEXT UNIQUE"]
+            table_name="bots",
+            columns=["id INTEGER PRIMARY KEY", "token TEXT UNIQUE", "name TEXT UNIQUE"]
         )
 
         db.create_table(
-            table_name="chats", columns=["id INTEGER PRIMARY KEY", "name TEXT"]
+            table_name="chats",
+            columns=["id INTEGER PRIMARY KEY", "name TEXT"]
         )
 
         db.create_table(

@@ -1,7 +1,7 @@
 import flet as ft
 
-from src.style.app_bar import AppBar
-from src.style.botton_app_bar import BottomAppBar
+from style.app_bar import AppBar
+from style.botton_app_bar import BottomAppBar
 
 
 class BaseFrame(ft.View):

@@ -5,7 +5,7 @@ from config import app_settings
 
 class SQLiteDB:
     def __init__(self, db_name: str = app_settings.DATABASE_NAME):
-        self.conn = sqlite3.connect(db_name)
+        self.conn = sqlite3.connect(db_name, check_same_thread=False)
         self.cursor = self.conn.cursor()
 
     def create_table(self, table_name: str, columns: list):
@@ -13,9 +13,10 @@ class SQLiteDB:
         self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({columns_str});")
         self.conn.commit()
 
-    def insert_data(self, table_name: str, data: tuple):
+    def insert_data(self, table_name: str, data: dict):
+        columns = ", ".join(data.keys())
         placeholders = ", ".join(["?"] * len(data))
-        self.cursor.execute(f"INSERT INTO {table_name} VALUES ({placeholders})", data)
+        self.cursor.execute(f"INSERT INTO {table_name}({columns}) VALUES ({placeholders})", list(data.values()))
         self.conn.commit()
 
     def select_data(self, table_name: str, condition: str = ""):
@@ -48,8 +49,8 @@ if __name__ == "__main__":
         db.create_table("users", ["id INTEGER PRIMARY KEY", "name TEXT", "age INTEGER"])
 
         # Вставка данных
-        db.insert_data("users", (1, "Alice", 30))
-        db.insert_data("users", (2, "Bob", 25))
+        db.insert_data("users", {"id": 1, "name": "Alice", "age": 30})
+        db.insert_data("users", {"id": 2, "name": "Bob", "age": 25})
 
         # Получение данных
         all_users = db.select_data("users")

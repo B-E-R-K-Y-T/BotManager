@@ -14,6 +14,10 @@ class AppSettings(BaseSettings):
     BERKYT_LINK: str = "https://github.com/B-E-R-K-Y-T"
     XAMEX_LINK: str = "https://t.me/AKhametzyanov"
 
+    WEB_APP: bool = True
+
+    PORT: int
+
     model_config = SettingsConfigDict(env_file=f"{BASE_DIR}/.env")
 
 

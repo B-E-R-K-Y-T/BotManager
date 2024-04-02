@@ -32,6 +32,12 @@ class SettingsManager:
         self.page.route = Urls.ADD_BOT_PAGE.url
         self.page.update()
 
+    def view_bots(self, e):
+        from urls import Urls
+
+        self.page.route = Urls.VIEW_BOTS_PAGE.url
+        self.page.update()
+
 
 class AppBar(Container):
     def __init__(self, page: ft.Page, title: str = app_settings.APP_TITLE):
@@ -55,12 +61,18 @@ class AppBar(Container):
             text="Добавить нового бота",
             on_click=self.settings_manager.add_bot,
         )
+        self.view_bots_btn = ft.PopupMenuItem(
+            icon=ft.icons.VIEW_COLUMN_ROUNDED,
+            text="Мои боты",
+            on_click=self.settings_manager.view_bots,
+        )
 
         self.settings_btn = ft.PopupMenuButton(
             icon=ft.icons.SETTINGS,
             items=[
                 self.theme_btn,
                 self.add_bot_btn,
+                self.view_bots_btn,
             ]
         )
 

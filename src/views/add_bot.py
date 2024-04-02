@@ -1,5 +1,9 @@
+import sqlite3
+
 import flet as ft
 
+from services.database.connector import SQLiteDB
+from style.snack_bar import SnackBar
 from views.base_frame import BaseFramePage
 
 
@@ -20,7 +24,8 @@ class AddBotPage(BaseFramePage):
             label="Введите имя бота"
         )
         self.add_button = ft.IconButton(
-            icon=ft.icons.ADD
+            icon=ft.icons.ADD,
+            on_click=self.add_bot_handler,
         )
 
         self.add_bot_container = ft.Container(
@@ -43,3 +48,22 @@ class AddBotPage(BaseFramePage):
         self.controls += [
             self.add_bot_container
         ]
+
+    def add_bot_handler(self, e):
+        if not all([self.token_field.value, self.name_bot_field.value]):
+            SnackBar(self.page, "Одно из значений пустое.").activate_snack_bar()
+            return
+
+        with SQLiteDB() as db:
+            try:
+                db.insert_data(
+                    table_name="bots",
+                    data={
+                        "token": self.token_field.value,
+                        "name": self.name_bot_field.value
+                    }
+                )
+                SnackBar(self.page, "Успешно.").activate_snack_bar()
+            except sqlite3.Error as e:
+                SnackBar(self.page, f"Ошибка. Подробнее: {str(e)}").activate_snack_bar()
+                return

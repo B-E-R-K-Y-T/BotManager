@@ -1,6 +1,8 @@
+import asyncio
+
 import flet as ft
 
-from views.base_frame import BaseFramePage
+from pages.base_frame import BaseFramePage
 
 
 class NotFoundPage(BaseFramePage):
@@ -15,11 +17,14 @@ class NotFoundPage(BaseFramePage):
         self.route = route
 
         self.not_found_text = ft.Text(
-            value="Page Not Found",
-            scale=3,
-            offset=ft.Offset(x=0, y=-50),
-            animate_offset=ft.animation.Animation(1000, ft.AnimationCurve.BOUNCE_OUT),
-        )
+                    value="Page Not Found",
+                    scale=3,
+                    offset=ft.Offset(x=0, y=-int(self.page.height) / 100 * 5),
+                    animate_offset=ft.animation.Animation(
+                        int(self.page.height),
+                        ft.AnimationCurve.BOUNCE_OUT
+                    ),
+                )
 
         self.controls += [
             ft.Container(
@@ -30,4 +35,5 @@ class NotFoundPage(BaseFramePage):
 
     async def start_animate(self):
         self.not_found_text.offset = ft.Offset(x=0, y=0)
+        await asyncio.sleep(0.1)
         self.not_found_text.update()

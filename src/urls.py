@@ -1,6 +1,6 @@
-from services.urls_manager import UrlCollector, EndPoint
-from views.add_bot import AddBotPage
-from views.view_bots import ViewBotsPage
+from services.url_manage.manager import UrlCollector, EndPoint
+from pages.add_bot import AddBotPage
+from pages.view_bots import ViewBotsPage
 
 
 class Urls(UrlCollector):

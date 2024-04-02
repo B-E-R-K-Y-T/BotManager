@@ -166,3 +166,7 @@ ignore_git/
 .env.dev
 
 *.db
+
+app.spec
+build
+dist

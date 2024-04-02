@@ -1,4 +1,5 @@
 import os
+from enum import Enum
 
 from pydantic_settings import SettingsConfigDict, BaseSettings
 
@@ -6,8 +7,14 @@ from pydantic_settings import SettingsConfigDict, BaseSettings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+class ThemeMode(Enum):
+    dark = "Dark"
+    light = "Light"
+
+
 class AppSettings(BaseSettings):
     APP_TITLE: str = "DefaultTitleApp"
+    THEME_MODE: ThemeMode
 
     DATABASE_NAME: str
 
@@ -16,6 +23,7 @@ class AppSettings(BaseSettings):
 
     WEB_APP: bool = True
 
+    HOST: str
     PORT: int
 
     model_config = SettingsConfigDict(env_file=f"{BASE_DIR}/.env")

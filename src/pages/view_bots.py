@@ -1,7 +1,17 @@
 import flet as ft
 
-from services.database.connector import SQLiteDB
-from views.base_frame import BaseFramePage
+from services.database.worker import SQLiteDB
+from pages.base_frame import BaseFramePage
+
+
+def view_bot_menu():
+    def params(bot_id: int):
+        def on_click_event_handler(e):
+            print(bot_id)
+
+        return on_click_event_handler
+
+    return params
 
 
 class ViewBotsPage(BaseFramePage):
@@ -14,6 +24,7 @@ class ViewBotsPage(BaseFramePage):
         self.page = page
         self.scroll = ft.ScrollMode.ADAPTIVE
         self.route = route
+        self.view_bot_on_click = view_bot_menu()
 
         with SQLiteDB() as db:
             self.bots = db.select_data(
@@ -33,7 +44,12 @@ class ViewBotsPage(BaseFramePage):
                             ft.DataCell(ft.Text(str(bot_id))),
                             ft.DataCell(ft.Text(str(token))),
                             ft.DataCell(ft.Text(str(bot_name))),
-                            ft.DataCell(ft.IconButton(icon=ft.icons.MENU)),
+                            ft.DataCell(
+                                ft.IconButton(
+                                    icon=ft.icons.MENU,
+                                    on_click=self.view_bot_on_click(bot_id=bot_id)
+                                )
+                            ),
                         ]
                     ) for bot_id, token, bot_name in self.bots
                 ]

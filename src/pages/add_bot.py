@@ -2,9 +2,9 @@ import sqlite3
 
 import flet as ft
 
-from services.database.connector import SQLiteDB
+from services.database.worker import SQLiteDB
 from style.snack_bar import SnackBar
-from views.base_frame import BaseFramePage
+from pages.base_frame import BaseFramePage
 
 
 class AddBotPage(BaseFramePage):

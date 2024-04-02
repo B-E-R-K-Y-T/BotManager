@@ -1,9 +1,9 @@
 import flet as ft
 
-from views.base_frame import BaseFrame
+from views.base_frame import BaseFramePage
 
 
-class NotFound(BaseFrame):
+class NotFoundPage(BaseFramePage):
     def __init__(self, page: ft.Page, *args, route, **kwargs):
         super().__init__(page, *args, route=route, **kwargs)
 
@@ -16,7 +16,7 @@ class NotFound(BaseFrame):
 
         self.not_found_text = ft.Text(
             value="Page Not Found",
-            scale=2,
+            scale=3,
             offset=ft.Offset(x=0, y=-50),
             animate_offset=ft.animation.Animation(1000, ft.AnimationCurve.BOUNCE_OUT),
         )

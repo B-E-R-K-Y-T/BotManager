@@ -1,9 +1,8 @@
 import flet as ft
 
-
-from urls import URLS
-from views.not_found_page import NotFound
-from views.root import Root
+from urls import Urls
+from views.not_found_page import NotFoundPage
+from views.root import RootPage
 
 
 class RouteManager:
@@ -16,22 +15,25 @@ class RouteManager:
 
     async def route_change(self, route):
         self.page.views.clear()
-        self.page.views.append(Root(self.page, route="/"))
+        self.page.views.append(RootPage(self.page, route="/"))
 
         if self.page.route == "/":
             self.page.update()
             return
 
-        elif self.page.route in URLS:
-            view = URLS[self.page.route](self.page, route=self.page.route)
+        elif self.page.route in Urls.urls():
+            for endpoint in Urls.endpoints():
+                if self.page.route in endpoint:
+                    view = endpoint[self.page.route](self.page, route=self.page.route)
 
-            self.page.views.append(view)
-            self.page.update()
+                    self.page.views.append(view)
+                    self.page.update()
 
-            await view.start_animate()
+                    await view.start_animate()
 
+                    break
         else:
-            not_found = NotFound(self.page, route=self.page.route)
+            not_found = NotFoundPage(self.page, route=self.page.route)
             self.page.views.append(not_found)
             self.page.update()
 

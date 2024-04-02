@@ -4,7 +4,7 @@ from style.app_bar import AppBar
 from style.botton_app_bar import BottomAppBar
 
 
-class BaseFrame(ft.View):
+class BaseFramePage(ft.View):
     def __init__(self, page: ft.Page, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

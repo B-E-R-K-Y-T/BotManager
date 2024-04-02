@@ -1,4 +1,4 @@
-from services.database import SQLiteDB
+from services.database.connector import SQLiteDB
 
 
 def init_database():

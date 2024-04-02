@@ -26,6 +26,12 @@ class SettingsManager:
 
             self.page.update()
 
+    def add_bot(self, e):
+        from urls import Urls
+
+        self.page.route = Urls.ADD_BOT_PAGE.url
+        self.page.update()
+
 
 class AppBar(Container):
     def __init__(self, page: ft.Page, title: str = app_settings.APP_TITLE):
@@ -44,13 +50,24 @@ class AppBar(Container):
             text="Сменить тему",
             on_click=self.settings_manager.switch_theme_mode,
         )
+        self.add_bot_btn = ft.PopupMenuItem(
+            icon=ft.icons.ADD,
+            text="Добавить нового бота",
+            on_click=self.settings_manager.add_bot,
+        )
 
         self.settings_btn = ft.PopupMenuButton(
             icon=ft.icons.SETTINGS,
-            items=[self.theme_btn]
+            items=[
+                self.theme_btn,
+                self.add_bot_btn,
+            ]
         )
 
-        for btn in [("theme_btn", self.theme_btn)]:
+        for btn in [
+            ("theme_btn", self.theme_btn),
+            ("add_bot_btn", self.add_bot_btn)
+        ]:
             self.settings_manager.add_parameter(*btn)
 
         self.app_bar = ft.AppBar(

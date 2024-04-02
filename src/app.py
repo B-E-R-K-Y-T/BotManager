@@ -1,7 +1,7 @@
 import flet as ft
 
 from app_builder import AppBuilder
-from services.init import init_database
+from services.database.init import init_database
 
 
 async def main(page: ft.Page):

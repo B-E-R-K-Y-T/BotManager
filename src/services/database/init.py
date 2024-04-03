@@ -5,7 +5,12 @@ def init_database():
     with SQLiteDB() as db:
         db.create_table(
             table_name="bots",
-            columns=["id INTEGER PRIMARY KEY AUTOINCREMENT ", "token TEXT UNIQUE", "name TEXT UNIQUE"]
+            columns=[
+                "id INTEGER PRIMARY KEY AUTOINCREMENT ",
+                "address TEXT UNIQUE",
+                "token TEXT UNIQUE",
+                "name TEXT UNIQUE",
+            ]
         )
 
         db.create_table(

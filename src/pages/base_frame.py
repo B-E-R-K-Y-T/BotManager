@@ -11,5 +11,8 @@ class BaseFramePage(ft.View):
         self.appbar = AppBar(page).get_container()
         self.bottom_appbar = BottomAppBar(page).get_container()
 
+    async def async_init(self, *args, **kwargs):
+        pass
+
     async def start_animate(self):
         pass
